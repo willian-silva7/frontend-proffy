@@ -1,12 +1,21 @@
 // eslint-disable-next-line no-use-before-define
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FiBook, FiCpu, FiHeart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import logoImg from '../../assets/images/logo.png';
 import landingImg from '../../assets/images/landing.png';
 import './styles.css';
+import api from '../../services/api';
 
 const Landing = () => {
+  const [totalConnections, setTotalconnections] = useState(0);
+
+  useEffect(() => {
+    api.get('connections').then(response => {
+      setTotalconnections(response.data);
+    });
+  }, []);
+
   return (
     <div id="page-landing">
       <div id="page-landing-content" className="container">
@@ -28,7 +37,8 @@ const Landing = () => {
         </div>
 
         <span className="total-connections">
-          Total de 200 conexões já realizadas <FiHeart className="image" />
+          Total de {totalConnections} conexões já realizadas{' '}
+          <FiHeart className="image" />
         </span>
 
         <img src={landingImg} alt="landing" className="hero-image" />

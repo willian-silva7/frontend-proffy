@@ -6,11 +6,13 @@ import './styles.css';
 
 import { Link } from 'react-router-dom';
 
+import { FiArrowLeft } from 'react-icons/fi';
 import logoImg from '../../assets/images/logo.png';
-import backIcon from '../../assets/images/icons/back.png';
+// import backIcon from '../../assets/images/icons/back.png';
 
 interface PageHeaderProps {
   title: string;
+  description?: string;
 }
 
 const PageHeader: React.FC<PageHeaderProps> = props => {
@@ -18,13 +20,16 @@ const PageHeader: React.FC<PageHeaderProps> = props => {
     <header className="page-header">
       <div className="top-bar-container">
         <Link to="/">
-          <img src={backIcon} alt="voltar" />
+          <FiArrowLeft color="#fff" size={25} />
         </Link>
         <img src={logoImg} alt="Proffy" />
+      </div>
 
-        <div className="header-content">
-          <strong>{props.children}</strong>
-        </div>
+      <div className="header-content">
+        <strong>{props.title}</strong>
+        {props.description && <p>{props.description}</p>}
+
+        {props.children}
       </div>
     </header>
   );
